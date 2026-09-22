@@ -1,5 +1,6 @@
 package com.sparetime.demospringai.controller;
 
+import com.sparetime.demospringai.repository.ChatHistoryRepository;
 import jakarta.annotation.Resource;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,9 +14,12 @@ import static org.springframework.ai.chat.client.advisor.AbstractChatMemoryAdvis
 public class AIController {
     @Resource
     private ChatClient chatClient;
+    @Resource
+    private ChatHistoryRepository inMemoryChatHistoryRepository;
 
     @RequestMapping(value = "/chat", produces = "text/html;charset=utf-8")
     public Flux<String> chat(String prompt, String chatId) {
+        inMemoryChatHistoryRepository.save("chat", chatId);
         return chatClient
                 .prompt()
                 .user(prompt)
