@@ -17,6 +17,8 @@ public class AIController {
     private ChatClient chatClient;
     @Resource
     private ChatClient gameChatClient;
+    @Resource
+    private ChatClient serviceChatClient;
 
     @Resource
     private ChatHistoryRepository inMemoryChatHistoryRepository;
@@ -35,6 +37,16 @@ public class AIController {
     @RequestMapping(value = "/game", produces = "text/html;charset=utf-8")
     public Flux<String> game(String prompt, String chatId) {
         return gameChatClient
+                .prompt()
+                .user(prompt)
+                .advisors(a -> a.param(CHAT_MEMORY_CONVERSATION_ID_KEY, chatId))
+                .stream()
+                .content();
+    }
+
+    @RequestMapping(value = "/service", produces = "text/html;charset=utf-8")
+    public Flux<String> service(String prompt, String chatId) {
+        return serviceChatClient
                 .prompt()
                 .user(prompt)
                 .advisors(a -> a.param(CHAT_MEMORY_CONVERSATION_ID_KEY, chatId))

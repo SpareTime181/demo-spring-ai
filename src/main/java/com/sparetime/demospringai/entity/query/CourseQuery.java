@@ -21,7 +21,7 @@ public class CourseQuery {
     private List<Sort> sorts;
 
     @Data
-    private static class Sort {
+    public static class Sort {
         @ToolParam(required = false, description = "排序字段: price或duration")
         private String field;
         @ToolParam(required = false, description = "是否是升序: true/false")

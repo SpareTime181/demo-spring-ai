@@ -6,12 +6,19 @@ spring:
       base-url: http://localhost:11434
       chat:
         model: deepseek-r1:14b
+      embedding:
+        options:
+          model: qwen3-embedding:4b
     openai:
       base-url: https://ws-q11mhfcx8cg6t4j2.cn-beijing.maas.aliyuncs.com/compatible-mode
       api-key: ${DASHSCOPE_API_KEY}
       chat:
         options:
           model: qwen3.8-max
+#      embedding:
+#        options:
+#          model: text-embedding-v3
+#          dimensions: 1024
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/demo-spring-ai?serverTimezone=Asia/Shanghai&useSSL=false&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&tinyInt1isBit=false&allowPublicKeyRetrieval=true&allowMultiQueries=true&useServerPrepStmts=false
